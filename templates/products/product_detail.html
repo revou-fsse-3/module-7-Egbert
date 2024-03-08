@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Reviews</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #222;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            background-color: #333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            color: #fff;
+        }
+
+        th {
+            background-color: #555;
+        }
+
+        tr:nth-child(even) {
+            background-color: #444;
+        }
+
+        tr:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h2>Product Details</h2>
+    <a href="{{ url_for('product_routes.product_home') }}">Back</a>
+
+    <div>
+        <h3>Product Name: {{ response_data['product'].name }}</h3>
+        <p>Price: {{ response_data['product'].price }}</p>
+        <p>Rating: {{ response_data['product'].average_rating }}</p>
+    </div>
+
+    <h2>Product Reviews</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Rating</th>
+                <th>Review Content</th>
+                <th>Created Datetime</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in response_data['product'].reviews %}
+            <tr>
+                <td>{{ review.email }}</td>
+                <td>{{ review.rating }}</td>
+                <td>{{ review.review_content }}</td>
+                <td>{{ review.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
